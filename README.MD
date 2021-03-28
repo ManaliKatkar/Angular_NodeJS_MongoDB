@@ -5,11 +5,11 @@
 ## nodemon app.js
 
 ## API details
-# create post
-Method :POST
-URL: http://localhost:3000/create
-Request:
-Response:
+## create post
+##  Method :POST
+##  URL: http://localhost:3000/create
+##  Request:
+##  Response:
 {
 "message": "Profile added successfully",
 "status": 0
