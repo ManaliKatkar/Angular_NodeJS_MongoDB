@@ -2,6 +2,7 @@
 
 ## npm install nodemon --save
 
+## nodemon app.js
 
 ## API details
 # create post
