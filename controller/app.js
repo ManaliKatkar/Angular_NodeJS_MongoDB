@@ -57,7 +57,7 @@ app.post("/book-movie-seat", (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the Note.",
+        message: err.message || "Some error occurred while creating the ticket.",
         status: 1,
       });
     });
@@ -76,24 +76,22 @@ app.get("/get-movie-seat-details", (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving notes.",
+        message: err.message || "Some error occurred while retrieving tickets.",
         status: 1,
       });
     });
 });
 
-// Update note
+// Update ticket
 app.put("/update-movie-seats", (req, res) => {
-  // Find note and update it with the request body
-  const filter = {
-    availability: true,
-  };
+  // Find ticket and update it with the request body
 
-  const updatedData = {
-    availability: false,
-  };
-
-  MovieSeatBooking.updateMany(filter, updatedData)
+  const data = req.body.map(element => element._id);
+  MovieSeatBooking.update(
+    { _id: { $in: data } },
+    { $set: { availability: false } },
+    { multi: true }
+  )
     .then((movieSeatBooking) => {
       res.send({
         message: "Movie Seat updated successfully!",
@@ -128,7 +126,7 @@ app.delete("/delete-movie-seat", (req, res) => {
         });
       }
       return res.status(500).send({
-        message: "Could not delete note with id " + req.body._id,
+        message: "Could not delete ticket with id " + req.body._id,
         status: 1,
       });
     });
