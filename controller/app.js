@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors'); 
+const cors = require("cors");
 
 // create express app
 const app = express();
@@ -35,21 +35,22 @@ mongoose
     process.exit();
   });
 
-const Profiles = require("../models/profile.model");
+const MovieSeatBooking = require("../models/movie_seat_booking.model");
 
-// Create and Save a new Profile
-app.post("/create-profile", (req, res) => {
-  console.log(req.body);
-
-  // Create a Profile
-  const profile = new Profiles({
-    name: req.body.name,
-    id: req.body.id,
-    Image: req.body.Image,
+// Create and Save a new movieSeatBooking
+app.post("/book-movie-seat", (req, res) => {
+  // Create a movieSeatBooking
+  const movieSeatBooking = new MovieSeatBooking({
+    seat_code: req.body.seat_code,
+    availability: req.body.availability,
+    type_of_seat: req.body.type_of_seat,
+    swachh_bharat_cess: req.body.swachh_bharat_cess,
+    krishi_kalyan_cess: req.body.krishi_kalyan_cess,
+    rate: req.body.rate,
   });
 
-  // Save Profile in the database
-  profile
+  // Save movieSeatBooking in the database
+  movieSeatBooking
     .save()
     .then((data) => {
       res.send(data);
@@ -62,16 +63,16 @@ app.post("/create-profile", (req, res) => {
     });
 
   res.json({
-    message: "Profile added successfully",
+    message: "Movie Seat Booking done successfully",
     status: 0,
   });
 });
 
-// Retrive all profile details
-app.get("/get-details", (req, res) => {
-  Profiles.find()
-    .then((profile) => {
-      res.send(profile);
+// Retrive all movieSeatBooking details
+app.get("/get-movie-seat-details", (req, res) => {
+  MovieSeatBooking.find()
+    .then((movieSeatBooking) => {
+      res.send(movieSeatBooking);
     })
     .catch((err) => {
       res.status(500).send({
@@ -81,60 +82,48 @@ app.get("/get-details", (req, res) => {
     });
 });
 
-
-
 // Update note
-app.put("/update-profile", (req, res) => {
+app.put("/update-movie-seats", (req, res) => {
   // Find note and update it with the request body
-  Profiles.findByIdAndUpdate(
-    req.body._id,
-    {
-      Image: req.body.Image,
-      name: req.body.name,
-      id: req.body.id,
-    },
-    { new: true }
-  )
-    .then((profile) => {
-      if (!profile) {
-        return res.status(404).send({
-          message: "Profile not found with id " + req.body._id,
-          status: 1,
-        });
-      }
-      res.send(profile);
+  const filter = {
+    availability: true,
+  };
+
+  const updatedData = {
+    availability: false,
+  };
+
+  MovieSeatBooking.updateMany(filter, updatedData)
+    .then((movieSeatBooking) => {
+      res.send({
+        message: "Movie Seat updated successfully!",
+        status: 0,
+      });
     })
     .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          message: "Profile not found with id " + req.body.profileId,
-          status: 1,
-        });
-      }
-      return res.status(500).send({
-        message: "Error updating profile with id " + req.body.profileId,
+      res.send({
+        message: "Something wrong!",
         status: 1,
       });
     });
 });
 
-// delete Profilei
-app.delete("/delete-profile", (req, res) => {
-  Profiles.findByIdAndRemove(req.body._id)
-    .then((profile) => {
-      console.log(profile);
-      if (!profile) {
+// delete movieSeatBookingi
+app.delete("/delete-movie-seat", (req, res) => {
+  MovieSeatBooking.findByIdAndRemove(req.body._id)
+    .then((movieSeatBooking) => {
+      if (!movieSeatBooking) {
         return res.status(404).send({
-          message: "Profile not found with id " + req.body._id,
+          message: "Movie Seat not found with id " + req.body._id,
           status: 1,
         });
       }
-      res.send({ message: "Profile deleted successfully!", status: 0 });
+      res.send({ message: "Movie Seat deleted successfully!", status: 0 });
     })
     .catch((err) => {
       if (err.kind === "ObjectId" || err.name === "NotFound") {
         return res.status(404).send({
-          message: "Profile not found with id " + req.body._id,
+          message: "movieSeatBooking not found with id " + req.body._id,
           status: 1,
         });
       }
