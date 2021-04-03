@@ -5,69 +5,62 @@
 ## nodemon app.js
 
 ## API details
-# create post
-Method :POST
-URL: http://localhost:3000/create
-Request:
-Response:
-{
-"message": "Profile added successfully",
-"status": 0
-}
 
-# get all post
-
-Method :GET
-URL: http://localhost:3000/get-details
-Response:
+# Method: PUT
+# URL : http://localhost:3000/update-movie-seats
+# Request Object: 
 [
-{
-"_id": "6060a64b33acb31644187327",
-"id": 1003,
-"Image": "https://s3-ap-southeast-1.amazonaws.com/he-public-data/Richard%20Mathew3350914.jpg",
-"createdAt": "2021-03-28T15:52:43.553Z",
-"updatedAt": "2021-03-28T15:52:43.553Z",
-"__v": 0
-},
-{
-"_id": "6060a98f5c1a7120a024179f",
-"id": 1003,
-"Image": "https://s3-ap-southeast-1.amazonaws.com/he-public-data/Richard%20Mathew3350914.jpg",
-"createdAt": "2021-03-28T16:06:39.269Z",
-"updatedAt": "2021-03-28T16:06:39.269Z",
-"__v": 0
-}
+    {
+        "availability": true,
+        "swachh_bharat_cess": 0.14,
+        "krishi_kalyan_cess": 0.5,
+        "_id": "60683e4999874f1ecc39ac11",
+        "seat_code": "A2",
+        "type_of_seat": "Platinum",
+        "rate": 320
+    },
+    {
+        "availability": true,
+        "swachh_bharat_cess": 0.14,
+        "krishi_kalyan_cess": 0.5,
+        "_id": "6068409a09be002dd0212411",
+        "seat_code": "B2",
+        "type_of_seat": "Platinum",
+        "rate": 280
+    }
 ]
-
-# delete post
-
-Method: DELETE
-URL:http://localhost:3000/delete-profile
-Request:
+# Response :
 {
-"\_id": "6060a98f5c1a7120a024179f"
+    "message": "Movie Seat updated successfully!",
+    "status": 0
 }
 
-Response:
-{
-"message": "Profile deleted successfully!",
-"status": 0
-}
-
-# update post
-
-Method: PUT
-URL:http://localhost:3000/update-profile
-Request:
-{
-"\_id": "6060b45e589381117cae6c05",
-"Image": "https://s3-ap-southeast-1.amazonaws.com/he-public-data/doug%20hermann1a0ca42.jpg",
-"name": "Doug Hermann",
-"id": "1006"
-}
-
-Response:
-{
-"message": "Profile deleted successfully!",
-"status": 0
-}
+# GET
+# http://localhost:3000/get-movie-seat-details
+# Response Object: 
+[
+    {
+        "availability": false,
+        "swachh_bharat_cess": 0.14,
+        "krishi_kalyan_cess": 0.5,
+        "_id": "60683e4999874f1ecc39ac11",
+        "seat_code": "A2",
+        "type_of_seat": "Platinum",
+        "rate": 320,
+        "createdAt": "2021-04-03T10:07:05.382Z",
+        "updatedAt": "2021-04-03T10:50:29.655Z",
+        "__v": 0
+    },
+    {
+        "availability": false,
+        "swachh_bharat_cess": 0.14,
+        "krishi_kalyan_cess": 0.5,
+        "_id": "6068409a09be002dd0212411",
+        "seat_code": "B2",
+        "type_of_seat": "Platinum",
+        "rate": 280,
+        "createdAt": "2021-04-03T10:16:58.080Z",
+        "updatedAt": "2021-04-03T10:50:29.655Z",
+        "__v": 0
+    }
+]
