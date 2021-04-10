@@ -26,5 +26,3 @@ URL:http://localhost:3000/delete-profile
 
 Method: PUT
 URL:http://localhost:3000/update-profile
-atus": 0
-}
